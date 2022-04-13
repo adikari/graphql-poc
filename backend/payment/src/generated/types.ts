@@ -24,6 +24,12 @@ export type CreatePaymentInput = {
   user: Scalars['ID'];
 };
 
+export type ExchangeRate = {
+  __typename?: 'ExchangeRate';
+  rate: Scalars['Float'];
+  total: Scalars['Float'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createPayment?: Maybe<Payment>;
@@ -44,8 +50,15 @@ export type Payment = {
 
 export type Query = {
   __typename?: 'Query';
+  exchangeRates?: Maybe<ExchangeRate>;
   paymentById?: Maybe<Payment>;
-  paymentsByUserEmail?: Maybe<Array<Maybe<Payment>>>;
+  paymentsByUserEmail?: Maybe<Array<Payment>>;
+};
+
+export type QueryExchangeRatesArgs = {
+  amount: Scalars['Float'];
+  from: Scalars['String'];
+  to: Scalars['String'];
 };
 
 export type QueryPaymentByIdArgs = {
@@ -60,7 +73,7 @@ export type QueryPaymentsByUserEmailArgs = {
 export type User = {
   __typename?: 'User';
   id: Scalars['ID'];
-  payments?: Maybe<Array<Maybe<Payment>>>;
+  payments?: Maybe<Array<Payment>>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -167,11 +180,13 @@ export type ResolversTypes = ResolversObject<{
   Int: ResolverTypeWrapper<Scalars['Int']>;
   String: ResolverTypeWrapper<Scalars['String']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  ExchangeRate: ResolverTypeWrapper<ExchangeRate>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
   Mutation: ResolverTypeWrapper<{}>;
   Payment: ResolverTypeWrapper<PaymentModel>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<
-    Omit<User, 'payments'> & { payments?: Maybe<Array<Maybe<ResolversTypes['Payment']>>> }
+    Omit<User, 'payments'> & { payments?: Maybe<Array<ResolversTypes['Payment']>> }
   >;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 }>;
@@ -182,13 +197,22 @@ export type ResolversParentTypes = ResolversObject<{
   Int: Scalars['Int'];
   String: Scalars['String'];
   ID: Scalars['ID'];
+  ExchangeRate: ExchangeRate;
+  Float: Scalars['Float'];
   Mutation: {};
   Payment: PaymentModel;
   Query: {};
-  User: Omit<User, 'payments'> & {
-    payments?: Maybe<Array<Maybe<ResolversParentTypes['Payment']>>>;
-  };
+  User: Omit<User, 'payments'> & { payments?: Maybe<Array<ResolversParentTypes['Payment']>> };
   Boolean: Scalars['Boolean'];
+}>;
+
+export type ExchangeRateResolvers<
+  ContextType = Context,
+  ParentType extends ResolversParentTypes['ExchangeRate'] = ResolversParentTypes['ExchangeRate']
+> = ResolversObject<{
+  rate?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  total?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type MutationResolvers<
@@ -224,6 +248,12 @@ export type QueryResolvers<
   ContextType = Context,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = ResolversObject<{
+  exchangeRates?: Resolver<
+    Maybe<ResolversTypes['ExchangeRate']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryExchangeRatesArgs, 'amount' | 'from' | 'to'>
+  >;
   paymentById?: Resolver<
     Maybe<ResolversTypes['Payment']>,
     ParentType,
@@ -231,7 +261,7 @@ export type QueryResolvers<
     RequireFields<QueryPaymentByIdArgs, 'email' | 'id'>
   >;
   paymentsByUserEmail?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['Payment']>>>,
+    Maybe<Array<ResolversTypes['Payment']>>,
     ParentType,
     ContextType,
     RequireFields<QueryPaymentsByUserEmailArgs, 'email'>
@@ -248,11 +278,12 @@ export type UserResolvers<
     ContextType
   >;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  payments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Payment']>>>, ParentType, ContextType>;
+  payments?: Resolver<Maybe<Array<ResolversTypes['Payment']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = Context> = ResolversObject<{
+  ExchangeRate?: ExchangeRateResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Payment?: PaymentResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

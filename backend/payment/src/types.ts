@@ -1,4 +1,4 @@
-import { CreatePaymentInput } from './generated/types';
+import { CreatePaymentInput, ExchangeRate } from './generated/types';
 
 export interface PaymentModel {
   id: string;
@@ -13,5 +13,8 @@ export interface Context {
     paymentById: (id: string, email: string) => Promise<PaymentModel | undefined>;
     paymentsByUserEmail: (email: string) => Promise<PaymentModel[]>;
     createPayment: (input: CreatePaymentInput) => Promise<PaymentModel>;
+  };
+  Exchange: {
+    convert: (from: string, to: string, amount: number) => Promise<ExchangeRate>;
   };
 }
