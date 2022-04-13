@@ -30,6 +30,11 @@ export type MutationCreateUserArgs = {
   input: CreateUserInput;
 };
 
+export type Payment = {
+  __typename?: 'Payment';
+  id: Scalars['ID'];
+};
+
 export type Query = {
   __typename?: 'Query';
   userByEmail?: Maybe<User>;
@@ -44,6 +49,7 @@ export type User = {
   email: Scalars['String'];
   id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
+  payments?: Maybe<Array<Maybe<Payment>>>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -149,8 +155,9 @@ export type ResolversTypes = ResolversObject<{
   CreateUserInput: CreateUserInput;
   String: ResolverTypeWrapper<Scalars['String']>;
   Mutation: ResolverTypeWrapper<{}>;
-  Query: ResolverTypeWrapper<{}>;
+  Payment: ResolverTypeWrapper<Payment>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<UserModel>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 }>;
@@ -160,8 +167,9 @@ export type ResolversParentTypes = ResolversObject<{
   CreateUserInput: CreateUserInput;
   String: Scalars['String'];
   Mutation: {};
-  Query: {};
+  Payment: Payment;
   ID: Scalars['ID'];
+  Query: {};
   User: UserModel;
   Boolean: Scalars['Boolean'];
 }>;
@@ -176,6 +184,19 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationCreateUserArgs, 'input'>
   >;
+}>;
+
+export type PaymentResolvers<
+  ContextType = Context,
+  ParentType extends ResolversParentTypes['Payment'] = ResolversParentTypes['Payment']
+> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes['Payment']>,
+    { __typename: 'Payment' } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type QueryResolvers<
@@ -202,11 +223,13 @@ export type UserResolvers<
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  payments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Payment']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = Context> = ResolversObject<{
   Mutation?: MutationResolvers<ContextType>;
+  Payment?: PaymentResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 }>;

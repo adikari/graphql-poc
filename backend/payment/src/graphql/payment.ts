@@ -4,7 +4,7 @@ import { Resolvers } from '../generated/types';
 export const typeDefs = gql`
   type Query {
     paymentById(id: ID!, email: String!): Payment
-    paymentsByUserEmail(email: String!): [Payment]
+    paymentsByUserEmail(email: String!): [Payment]!
   }
 
   type Mutation {
@@ -28,6 +28,7 @@ export const typeDefs = gql`
 
   type User @key(fields: "id") {
     id: ID!
+    payments: [Payment]!
   }
 `;
 
@@ -41,5 +42,8 @@ export const resolvers: Resolvers = {
   },
   Payment: {
     user: payment => ({ __typename: 'User', id: payment.user })
+  },
+  User: {
+    payments: (payment, _, context) => context.Payment.paymentsByUserEmail(payment.id)
   }
 };

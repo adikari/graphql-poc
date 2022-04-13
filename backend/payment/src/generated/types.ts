@@ -5,6 +5,7 @@ export type InputMaybe<T> = T | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -59,6 +60,7 @@ export type QueryPaymentsByUserEmailArgs = {
 export type User = {
   __typename?: 'User';
   id: Scalars['ID'];
+  payments?: Maybe<Array<Maybe<Payment>>>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -168,7 +170,9 @@ export type ResolversTypes = ResolversObject<{
   Mutation: ResolverTypeWrapper<{}>;
   Payment: ResolverTypeWrapper<PaymentModel>;
   Query: ResolverTypeWrapper<{}>;
-  User: ResolverTypeWrapper<User>;
+  User: ResolverTypeWrapper<
+    Omit<User, 'payments'> & { payments?: Maybe<Array<Maybe<ResolversTypes['Payment']>>> }
+  >;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 }>;
 
@@ -181,7 +185,9 @@ export type ResolversParentTypes = ResolversObject<{
   Mutation: {};
   Payment: PaymentModel;
   Query: {};
-  User: User;
+  User: Omit<User, 'payments'> & {
+    payments?: Maybe<Array<Maybe<ResolversParentTypes['Payment']>>>;
+  };
   Boolean: Scalars['Boolean'];
 }>;
 
@@ -242,6 +248,7 @@ export type UserResolvers<
     ContextType
   >;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  payments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Payment']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
