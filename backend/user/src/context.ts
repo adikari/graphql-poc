@@ -1,10 +1,10 @@
-import { createUser } from './data/ddb/create-user';
-import { getUserById } from './data/ddb/user-by-id';
 import { Context } from './types';
+import { createUser } from './data/ddb/create-user';
+import { userByEmail } from './data/ddb/user-by-email';
 
 export const context: Context = {
   User: {
-    userById: getUserById,
+    userByEmail,
     createUser
   }
 };

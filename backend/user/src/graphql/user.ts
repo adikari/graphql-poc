@@ -3,7 +3,7 @@ import { Resolvers } from '../generated/types';
 
 export const typeDefs = gql`
   type Query {
-    userById(id: ID!): User
+    userByEmail(email: ID!): User
   }
 
   type Mutation {
@@ -24,7 +24,7 @@ export const typeDefs = gql`
 
 export const resolvers: Resolvers = {
   Query: {
-    userById: (_, args, context) => context.User.userById(args.id)
+    userByEmail: (_, args, context) => context.User.userByEmail(args.email)
   },
   Mutation: {
     createUser: (_, args, context) => context.User.createUser(args.input)
