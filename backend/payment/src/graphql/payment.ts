@@ -26,8 +26,8 @@ export const typeDefs = gql`
     user: User!
   }
 
-  extend type User @key(fields: "id") {
-    id: ID! @external
+  type User @key(fields: "id") {
+    id: ID!
   }
 `;
 
@@ -38,5 +38,8 @@ export const resolvers: Resolvers = {
   },
   Mutation: {
     createPayment: (_, args, context) => context.Payment.createPayment(args.input)
+  },
+  Payment: {
+    user: payment => ({ __typename: 'User', id: payment.user } as any)
   }
 };

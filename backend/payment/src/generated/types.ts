@@ -59,7 +59,6 @@ export type QueryPaymentsByUserEmailArgs = {
 export type User = {
   __typename?: 'User';
   id: Scalars['ID'];
-  payments?: Maybe<Array<Maybe<Payment>>>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -242,8 +241,7 @@ export type UserResolvers<
     { __typename: 'User' } & GraphQLRecursivePick<ParentType, { id: true }>,
     ContextType
   >;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  payments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Payment']>>>, ParentType, ContextType>;
+
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
