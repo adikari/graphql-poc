@@ -1,7 +1,7 @@
 import * as sst from '@serverless-stack/resources';
 
 interface StatelessStackProps extends sst.StackProps {
-  userTable: sst.Table;
+  paymentTable: sst.Table;
 }
 
 export default class StatelessStack extends sst.Stack {
@@ -11,9 +11,9 @@ export default class StatelessStack extends sst.Stack {
     const gqlServer = new sst.Function(this, 'GqlServer', {
       handler: 'src/server.handler',
       environment: {
-        USER_TABLE: props.userTable.tableName
+        PAYMENT_TABLE: props.paymentTable.tableName
       },
-      permissions: [props.userTable]
+      permissions: [props.paymentTable]
     });
 
     const api = new sst.Api(this, 'Api', {

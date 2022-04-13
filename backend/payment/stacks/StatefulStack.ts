@@ -1,12 +1,12 @@
 import * as sst from '@serverless-stack/resources';
 
 export default class StatefulStack extends sst.Stack {
-  userTable: sst.Table;
+  paymentTable: sst.Table;
 
   constructor(scope: sst.App, id: string, props?: sst.StackProps) {
     super(scope, id, props);
 
-    this.userTable = new sst.Table(this, 'UserTable', {
+    this.paymentTable = new sst.Table(this, 'PaymentTable', {
       fields: {
         pk: sst.TableFieldType.STRING,
         sk: sst.TableFieldType.STRING

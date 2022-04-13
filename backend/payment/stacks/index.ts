@@ -7,7 +7,7 @@ export default function main(app: sst.App): void {
     runtime: 'nodejs14.x'
   });
 
-  const stateful = new StatefulStack(app, 'gql-poc-user-stateful');
+  const stateful = new StatefulStack(app, 'gql-poc-payment-stateful');
 
-  new StatelessStack(app, 'gql-poc-user', { userTable: stateful.userTable });
+  new StatelessStack(app, 'gql-poc-payment', { paymentTable: stateful.paymentTable });
 }

@@ -2,7 +2,7 @@ import { Table, Entity } from 'dynamodb-toolbox';
 import { DocumentClient } from 'aws-sdk/clients/dynamodb';
 
 export const UserTable = new Table({
-  name: process.env.USER_TABLE ?? 'empty',
+  name: process.env.USER_TABLE,
   partitionKey: 'pk',
   sortKey: 'sk',
   DocumentClient: new DocumentClient()

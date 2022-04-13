@@ -50,9 +50,9 @@ echo "generating schema file"
 ./node_modules/.bin/ts-node -O '{"module": "commonjs"}' ./bin/generate-schema.ts
 
 echo "deploying schema to apollo"
-# ./node_modules/.bin/rover subgraph publish $APOLLO_GRAPH_ID@$STAGE \
-#   --name payment --schema ./schema.graphql \
-#   --routing-url $GRAPHQL_URL
+./node_modules/.bin/rover subgraph publish $APOLLO_GRAPH_ID@$STAGE \
+  --name payment --schema ./schema.graphql \
+  --routing-url $GRAPHQL_URL
 
 cd "$CURRENT_DIR"
 

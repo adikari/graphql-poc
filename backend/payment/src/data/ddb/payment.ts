@@ -2,7 +2,7 @@ import { Table, Entity } from 'dynamodb-toolbox';
 import { DocumentClient } from 'aws-sdk/clients/dynamodb';
 
 export const PaymentTable = new Table({
-  name: process.env.PaymentTable ?? 'empty',
+  name: process.env.PAYMENT_TABLE,
   partitionKey: 'pk',
   sortKey: 'sk',
   DocumentClient: new DocumentClient()
