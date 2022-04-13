@@ -1,4 +1,4 @@
-import ServerlessStack from "./ServerlessStack";
+import StatelessStack from "./StatelessStack";
 import * as sst from "@serverless-stack/resources";
 
 export default function main(app: sst.App): void {
@@ -6,5 +6,5 @@ export default function main(app: sst.App): void {
     runtime: "nodejs14.x"
   });
 
-  new ServerlessStack(app, "gql-poc-gateway");
+  new StatelessStack(app, "gql-poc-gateway");
 }
