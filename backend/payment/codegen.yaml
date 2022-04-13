@@ -5,7 +5,10 @@ generates:
       - typescript
       - typescript-resolvers
     config:
+      contextType: ../types#Context
       federation: true
+      useIndexSignature: true
+      maybeValue: T | undefined
 
 hooks:
   afterAllFileWrite: prettier --write src/generated

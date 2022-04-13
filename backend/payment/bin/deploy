@@ -1,0 +1,63 @@
+#!/bin/bash
+
+set -euo pipefail
+
+CURRENT_AWS_ROLE="$(aws sts get-caller-identity)"
+AWS_ACCOUNT_ID=$(echo "$CURRENT_AWS_ROLE" | jq -r '.Account')
+STAGE=""
+
+usage="USAGE: $(basename "$0") [-s|--stage] <stage>
+
+where:
+    -s | --stage        stage for deployment (required)
+    -h | --help         show this help text"
+
+while [ $# -gt 0 ]; do
+    if [[ $1 =~ "--"* ]]; then
+        case $1 in
+            --help|-h) echo "$usage"; exit; ;;
+            --stage|-s) STAGE=$2;;
+        esac
+    fi
+    shift
+done
+
+ensure_env () {
+  if [[ -z ${!1+set} ]]; then
+    echo "💩 $1 environment variable is missing in environment"
+    exit 1
+  fi
+}
+
+if [ -z "$STAGE" ]; then
+  echo "$usage"; exit 1;
+fi
+
+export AWS_ACCOUNT_ID
+export STAGE
+
+ensure_env AWS_ACCOUNT_ID
+ensure_env APOLLO_GRAPH_ID
+ensure_env APOLLO_KEY
+ensure_env GRAPHQL_URL
+
+CURRENT_DIR=$(pwd)
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
+
+./node_modules/.bin/sst deploy --stage "$STAGE"
+
+echo "generating schema file"
+./node_modules/.bin/ts-node -O '{"module": "commonjs"}' ./bin/generate-schema.ts
+
+echo "deploying schema to apollo"
+# ./node_modules/.bin/rover subgraph publish $APOLLO_GRAPH_ID@$STAGE \
+#   --name payment --schema ./schema.graphql \
+#   --routing-url $GRAPHQL_URL
+
+cd "$CURRENT_DIR"
+
+unset AWS_ACCOUNT_ID
+unset STAGE
+
+echo "🎉 Done."
+
