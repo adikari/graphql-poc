@@ -40,6 +40,6 @@ export const resolvers: Resolvers = {
     createPayment: (_, args, context) => context.Payment.createPayment(args.input)
   },
   Payment: {
-    user: payment => ({ __typename: 'User', id: payment.user } as any)
+    user: payment => ({ __typename: 'User', id: payment.user })
   }
 };

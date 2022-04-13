@@ -1,8 +1,9 @@
-import { CreateUserInput, User } from '../../generated/types';
+import { CreateUserInput } from '../../generated/types';
 import { UserEntity } from './user';
+import { UserModel } from '../../types';
 import { log } from '../../util/logger';
 
-export const createUser = async (input: CreateUserInput): Promise<User> => {
+export const createUser = async (input: CreateUserInput): Promise<UserModel> => {
   log.info('creating user', { input });
 
   const user = {

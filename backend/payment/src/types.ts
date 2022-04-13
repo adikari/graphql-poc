@@ -1,9 +1,17 @@
-import { Payment, CreatePaymentInput } from './generated/types';
+import { CreatePaymentInput } from './generated/types';
+
+export interface PaymentModel {
+  id: string;
+  amount: number;
+  beneficiary: string;
+  date: string;
+  user: string;
+}
 
 export interface Context {
   Payment: {
-    paymentById: (id: string, email: string) => Promise<Payment | undefined>;
-    paymentsByUserEmail: (email: string) => Promise<Payment[]>;
-    createPayment: (input: CreatePaymentInput) => Promise<Payment>;
+    paymentById: (id: string, email: string) => Promise<PaymentModel | undefined>;
+    paymentsByUserEmail: (email: string) => Promise<PaymentModel[]>;
+    createPayment: (input: CreatePaymentInput) => Promise<PaymentModel>;
   };
 }

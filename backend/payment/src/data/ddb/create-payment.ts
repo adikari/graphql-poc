@@ -1,9 +1,10 @@
-import { CreatePaymentInput, Payment } from '../../generated/types';
+import { CreatePaymentInput } from '../../generated/types';
+import { PaymentModel } from './../../types';
 import { PaymentEntity } from './payment';
 import { log } from '../../util/logger';
 import { nanoid } from 'nanoid';
 
-export const createPayment = async (input: CreatePaymentInput): Promise<Payment> => {
+export const createPayment = async (input: CreatePaymentInput): Promise<PaymentModel> => {
   log.info('creating payment', { input });
 
   const id = nanoid();
@@ -21,6 +22,5 @@ export const createPayment = async (input: CreatePaymentInput): Promise<Payment>
 
   log.info('create payment result', { result });
 
-  // TODO: fix the types
-  return payment as unknown as Payment;
+  return payment;
 };

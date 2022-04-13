@@ -6,6 +6,8 @@ generates:
       - typescript-resolvers
     config:
       contextType: ../types#Context
+      mappers:
+        Payment: ../types#PaymentModel
       federation: true
       useIndexSignature: true
       maybeValue: T | undefined

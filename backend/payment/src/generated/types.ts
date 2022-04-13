@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { Context } from '../types';
+import { PaymentModel, Context } from '../types';
 export type Maybe<T> = T | undefined;
 export type InputMaybe<T> = T | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -166,7 +166,7 @@ export type ResolversTypes = ResolversObject<{
   String: ResolverTypeWrapper<Scalars['String']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Mutation: ResolverTypeWrapper<{}>;
-  Payment: ResolverTypeWrapper<Payment>;
+  Payment: ResolverTypeWrapper<PaymentModel>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -179,7 +179,7 @@ export type ResolversParentTypes = ResolversObject<{
   String: Scalars['String'];
   ID: Scalars['ID'];
   Mutation: {};
-  Payment: Payment;
+  Payment: PaymentModel;
   Query: {};
   User: User;
   Boolean: Scalars['Boolean'];
@@ -241,7 +241,7 @@ export type UserResolvers<
     { __typename: 'User' } & GraphQLRecursivePick<ParentType, { id: true }>,
     ContextType
   >;
-
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 

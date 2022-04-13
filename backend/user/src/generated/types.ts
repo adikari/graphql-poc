@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { Context } from '../types';
+import { UserModel, Context } from '../types';
 export type Maybe<T> = T | undefined;
 export type InputMaybe<T> = T | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -151,7 +151,7 @@ export type ResolversTypes = ResolversObject<{
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
-  User: ResolverTypeWrapper<User>;
+  User: ResolverTypeWrapper<UserModel>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 }>;
 
@@ -162,7 +162,7 @@ export type ResolversParentTypes = ResolversObject<{
   Mutation: {};
   Query: {};
   ID: Scalars['ID'];
-  User: User;
+  User: UserModel;
   Boolean: Scalars['Boolean'];
 }>;
 
