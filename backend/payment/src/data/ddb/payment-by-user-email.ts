@@ -3,11 +3,11 @@ import { log } from '../../util/logger';
 import { PaymentEntity } from './payment';
 
 export const paymentsByUserEmail = async (email: string): Promise<Payment[]> => {
-  log.info('getting user by email', { email });
+  log.info('getting user payment email', { email });
 
   const result = await PaymentEntity.query(email);
 
-  log.info('get user by email result', { result });
+  log.info('get payment by email result', { result });
 
   return result.Items ?? [];
 };

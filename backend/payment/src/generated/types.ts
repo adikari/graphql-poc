@@ -202,6 +202,11 @@ export type PaymentResolvers<
   ContextType = Context,
   ParentType extends ResolversParentTypes['Payment'] = ResolversParentTypes['Payment']
 > = ResolversObject<{
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes['Payment']>,
+    { __typename: 'Payment' } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
   amount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   beneficiary?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   date?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

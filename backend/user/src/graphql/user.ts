@@ -30,6 +30,9 @@ export const resolvers: Resolvers = {
     createUser: (_, args, context) => context.User.createUser(args.input)
   },
   User: {
-    __resolveReference: ({ id }, context) => context.User.userByEmail(id)
+    __resolveReference: (user, context) => {
+      console.log('resolving user', user);
+      return context.User.userByEmail(user.id);
+    }
   }
 };

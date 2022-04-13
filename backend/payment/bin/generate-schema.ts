@@ -5,12 +5,8 @@ import { writeFileSync } from 'fs';
 import { resolve } from 'path';
 import { schema } from '../src/server';
 
-const output = resolve(process.cwd(), 'schema.graphql');
-
-Promise.resolve()
-  .then(() => printSubgraphSchema(schema))
-  .then(s => writeFileSync(output, s, 'utf-8'))
-  .catch(err => {
-    console.error(err);
-    process.exit(1);
-  });
+try {
+  writeFileSync(resolve(process.cwd(), 'schema.graphql'), printSubgraphSchema(schema), 'utf-8');
+} catch (error) {
+  console.error(error);
+}

@@ -44,7 +44,7 @@ ensure_env GRAPHQL_URL
 CURRENT_DIR=$(pwd)
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
 
-# ./node_modules/.bin/sst deploy --stage "$STAGE"
+./node_modules/.bin/sst deploy --stage "$STAGE"
 
 echo "generating schema file"
 ./node_modules/.bin/ts-node -O '{"module": "commonjs"}' ./bin/generate-schema.ts

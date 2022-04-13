@@ -18,7 +18,7 @@ export const typeDefs = gql`
     date: String!
   }
 
-  type Payment {
+  type Payment @key(fields: "id") {
     id: ID!
     beneficiary: String!
     amount: Int!
@@ -26,9 +26,8 @@ export const typeDefs = gql`
     user: User!
   }
 
-  type User @key(fields: "id") {
-    id: ID!
-    payments: [Payment]
+  extend type User @key(fields: "id") {
+    id: ID! @external
   }
 `;
 
