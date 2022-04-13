@@ -44,7 +44,10 @@ ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
 
 ./node_modules/.bin/sst deploy --stage "$STAGE"
 
-echo $APOLLO_KEY
+echo "generating schema file"
+./node_modules/.bin/ts-node -O '{"module": "commonjs"}' ./bin/generate-schema.ts
+
+echo "deploying schema to apollo"
 ./node_modules/.bin/rover subgraph publish $APOLLO_GRAPH_ID@$STAGE \
   --name user --schema ./schema.graphql \
   --routing-url $GRAPHQL_URL

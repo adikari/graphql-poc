@@ -1,9 +1,9 @@
 import { ApolloServer } from 'apollo-server-lambda';
-import { resolvers, typeDefs } from './graphql/user';
+import { buildSubgraphSchema } from '@apollo/federation';
+import * as userSchema from './graphql/user';
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers
-});
+export const schema = buildSubgraphSchema([userSchema]);
+
+const server = new ApolloServer({ schema });
 
 export const handler = server.createHandler();
