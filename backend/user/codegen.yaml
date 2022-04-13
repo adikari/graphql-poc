@@ -5,6 +5,7 @@ generates:
       - typescript
       - typescript-resolvers
     config:
+      contextType: ../types#Context
       federation: true
 
 hooks:

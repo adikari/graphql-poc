@@ -24,17 +24,9 @@ export const typeDefs = gql`
 
 export const resolvers: Resolvers = {
   Query: {
-    userById: () => ({
-      id: '1',
-      name: 'John Doe',
-      email: ''
-    })
+    userById: (_, args, context) => context.User.userById(args.id)
   },
   Mutation: {
-    createUser: () => ({
-      id: '1',
-      name: 'John Doe',
-      email: ''
-    })
+    createUser: (_, args, context) => context.User.createUser(args.input)
   }
 };
