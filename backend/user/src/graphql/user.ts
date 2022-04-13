@@ -15,7 +15,7 @@ export const typeDefs = gql`
     email: String!
   }
 
-  type User {
+  type User @key(fields: "id") {
     id: ID!
     name: String
     email: String!
@@ -28,5 +28,8 @@ export const resolvers: Resolvers = {
   },
   Mutation: {
     createUser: (_, args, context) => context.User.createUser(args.input)
+  },
+  User: {
+    __resolveReference: ({ id }, context) => context.User.userByEmail(id)
   }
 };
