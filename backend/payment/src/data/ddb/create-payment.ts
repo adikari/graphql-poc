@@ -10,7 +10,8 @@ export const createPayment = async (input: CreatePaymentInput): Promise<Payment>
 
   const payment = {
     id,
-    sk: input.beneficiary,
+    sk: id,
+    user: input.user,
     beneficiary: input.beneficiary,
     date: new Date(input.date).toISOString(),
     amount: input.amount

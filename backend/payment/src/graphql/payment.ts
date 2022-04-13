@@ -12,6 +12,7 @@ export const typeDefs = gql`
   }
 
   input CreatePaymentInput {
+    user: ID!
     beneficiary: String!
     amount: Int!
     date: String!
@@ -19,6 +20,7 @@ export const typeDefs = gql`
 
   type Payment {
     id: ID!
+    user: String!
     beneficiary: String!
     amount: Int!
     date: String!

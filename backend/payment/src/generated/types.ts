@@ -20,6 +20,7 @@ export type CreatePaymentInput = {
   amount: Scalars['Int'];
   beneficiary: Scalars['String'];
   date: Scalars['String'];
+  user: Scalars['ID'];
 };
 
 export type Mutation = {
@@ -37,6 +38,7 @@ export type Payment = {
   beneficiary: Scalars['String'];
   date: Scalars['String'];
   id: Scalars['ID'];
+  user: Scalars['String'];
 };
 
 export type Query = {
@@ -144,9 +146,9 @@ export type ResolversTypes = ResolversObject<{
   CreatePaymentInput: CreatePaymentInput;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   Mutation: ResolverTypeWrapper<{}>;
   Payment: ResolverTypeWrapper<Payment>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
   Query: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 }>;
@@ -156,9 +158,9 @@ export type ResolversParentTypes = ResolversObject<{
   CreatePaymentInput: CreatePaymentInput;
   Int: Scalars['Int'];
   String: Scalars['String'];
+  ID: Scalars['ID'];
   Mutation: {};
   Payment: Payment;
-  ID: Scalars['ID'];
   Query: {};
   Boolean: Scalars['Boolean'];
 }>;
@@ -183,6 +185,7 @@ export type PaymentResolvers<
   beneficiary?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   date?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
