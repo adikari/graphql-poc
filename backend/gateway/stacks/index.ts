@@ -6,5 +6,5 @@ export default function main(app: sst.App): void {
     runtime: "nodejs14.x"
   });
 
-  new ServerlessStack(app, "gql-poc-user");
+  new ServerlessStack(app, "gql-poc-gateway");
 }
