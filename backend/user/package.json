@@ -6,7 +6,7 @@
     "test": "sst test",
     "start": "sst start",
     "build": "sst build",
-    "deploy": "sst deploy",
+    "deploy": "./bin/deploy",
     "remove": "sst remove",
     "lint": "tsc --noEmit",
     "generate": "graphql-codegen"
@@ -17,6 +17,7 @@
     ]
   },
   "devDependencies": {
+    "@apollo/rover": "^0.5.1",
     "@graphql-codegen/typescript-resolvers": "^2.6.1",
     "@serverless-stack/cli": "0.69.5",
     "@serverless-stack/resources": "0.69.5",

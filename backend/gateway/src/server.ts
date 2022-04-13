@@ -3,7 +3,7 @@ import { ApolloGateway } from '@apollo/gateway';
 
 const gateway = new ApolloGateway();
 
-export const handler = new ApolloServer({
+const server = new ApolloServer({
   gateway,
   apollo: {
     key: process.env.APOLLO_KEY,
@@ -11,3 +11,5 @@ export const handler = new ApolloServer({
     graphVariant: process.env.APOLLO_GRAPH_VARIANT
   }
 });
+
+export const handler = server.createHandler();
