@@ -6,13 +6,6 @@ export const handler: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEv
   log.info('received event', { event });
   const userId = event.pathParameters?.id;
 
-  if (!userId) {
-    return {
-      statusCode: 400,
-      body: 'userId is missing in path params'
-    };
-  }
-
   const query = `
     query GetPaymentsByUserEmail($email: String!) {
       paymentsByUserEmail(email: $email) {
@@ -22,7 +15,6 @@ export const handler: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEv
         amount
         user {
           id
-          email
         }
       }
     }
@@ -30,14 +22,16 @@ export const handler: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEv
 
   const res = await axios.post(
     process.env.PAYMENT_GQL_URL,
-    { body: JSON.stringify({ query, variables: { email: userId } }) },
+    { query, variables: { email: userId } },
     { headers: { 'content-type': 'application/json' } }
   );
 
-  log.info('response from payment', res);
+  log.info('data from payment endpoint', { data: res.data });
+
+  const payments = res.data?.data?.paymentsByUserEmail ?? [];
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ data: res.data })
+    body: JSON.stringify({ data: payments })
   };
 };

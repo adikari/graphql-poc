@@ -23,7 +23,7 @@ export default class StatelessStack extends sst.Stack {
           function: {
             handler: 'src/functions/get-user-payments.handler',
             environment: {
-              PAYMENT_GQL_URL: paymentGraphqlEndpoint
+              PAYMENT_GQL_URL: `${paymentGraphqlEndpoint}/graphql`
             }
           }
         }
