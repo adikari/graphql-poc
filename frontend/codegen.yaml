@@ -1,0 +1,17 @@
+schema: https://bgyn2ati22.execute-api.us-east-1.amazonaws.com/graphql
+
+overwrite: true
+documents: 'queries.graphql'
+
+hooks:
+  afterAllFileWrite:
+    - prettier --write 'generated'
+
+generates:
+  generated/graphql.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-urql
+
+

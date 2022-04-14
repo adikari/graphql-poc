@@ -1,0 +1,42 @@
+query GetExchangeRate($from: String!, $to: String!, $amount: Float!) {
+  exchangeRates(from: $from, to: $to, amount: $amount) {
+    total
+    rate
+  }
+}
+
+query UserByEmail($email: ID!) {
+  userByEmail(email: $email) {
+    id
+    name
+    email
+    payments {
+      id
+      beneficiary
+      date
+      amount
+    }
+  }
+}
+
+query GetPaymentsById($id: ID!, $email: String!) {
+  paymentById(id: $id, email: $email) {
+    id
+    beneficiary
+    date
+    amount
+    user {
+      id
+      name
+    }
+  }
+}
+
+mutation CreatePayment($input: CreatePaymentInput!) {
+  createPayment(input: $input) {
+    id
+    beneficiary
+    date
+    amount
+  }
+}
