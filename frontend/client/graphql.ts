@@ -50,6 +50,6 @@ export const ssr = ssrExchange({
 });
 
 export const client = createClient({
-  url: 'https://bgyn2ati22.execute-api.us-east-1.amazonaws.com/graphql',
+  url: 'https://5et6hgc47c.execute-api.us-east-1.amazonaws.com/graphql',
   exchanges: [devtoolsExchange, dedupExchange, cache, ssr, fetchExchange]
 });

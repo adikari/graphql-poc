@@ -1,4 +1,5 @@
 import * as sst from '@serverless-stack/resources';
+// import * as cdk from 'aws-cdk-lib';
 
 interface StatelessStackProps extends sst.StackProps {
   userTable: sst.Table;
@@ -16,6 +17,18 @@ export default class StatelessStack extends sst.Stack {
       permissions: [props.userTable]
     });
 
+    const restapi = new sst.Api(this, 'Rest', {
+      routes: {
+        'GET    /users/{id}': 'src/functions/get-user-by-id.handler',
+        'GET    /users/{id}/payments': {
+          environment: {
+            PAYMENT_API_URL: 'payment-api-url'
+          },
+          srcPath: 'src/get-user-payments.handler'
+        }
+      }
+    });
+
     const api = new sst.Api(this, 'Api', {
       routes: {
         'POST /graphql': gqlServer
@@ -23,7 +36,8 @@ export default class StatelessStack extends sst.Stack {
     });
 
     this.addOutputs({
-      GraphqlEndpoint: api.url
+      GraphqlEndpoint: api.url,
+      RestEndpoint: restapi.url
     });
   }
 }

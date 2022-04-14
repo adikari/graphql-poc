@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 async function authorize(credentials: Record<'email', string> | undefined) {
-  const url = `https://bgyn2ati22.execute-api.us-east-1.amazonaws.com/graphql`;
+  const url = 'https://5et6hgc47c.execute-api.us-east-1.amazonaws.com/graphql';
 
   const query = `
     mutation CreateUser($input: CreateUserInput!) {

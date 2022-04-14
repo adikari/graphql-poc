@@ -23,7 +23,10 @@ export default class StatelessStack extends sst.Stack {
     });
 
     this.addOutputs({
-      GraphqlEndpoint: api.url
+      GraphqlEndpoint: {
+        exportName: scope.logicalPrefixedName('GraphqlEndpoint'),
+        value: api.url
+      }
     });
   }
 }
