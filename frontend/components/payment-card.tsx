@@ -6,22 +6,22 @@ interface PaymentCardProps {
 
 export default function PaymentCard({ payment }: PaymentCardProps) {
   return (
-    <div className="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+    <div className="p-6 max-w-sm bg-gray-800 rounded-lg border border-gray-200 shadow-md">
       <a href="#">
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          {payment.beneficiary}
-        </h5>
+        <h5 className="mb-4 text-5xl font-bold tracking-tight text-gray-100">${payment.amount}</h5>
       </a>
 
-      <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-        {payment.date} ${payment.amount}
+      <p className="mb-2 font-normal text-gray-400">
+        paid to <span className="text-gray-100">{payment.beneficiary}</span>
       </p>
 
-      <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">${payment.amount}</p>
+      <p className="mb-6 font-normal text-gray-400">
+        on <span className="text-gray-100">{new Date(payment.date).toDateString()}</span>
+      </p>
 
       <a
         href="#"
-        className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-gray-600 rounded-lg hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300"
       >
         View Payment
         <svg
