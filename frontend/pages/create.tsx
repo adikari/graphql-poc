@@ -1,5 +1,5 @@
-import PaymentCardList from '../components/payment-card-list';
 import Layout from '../components/layout';
+import CreatePaymentForm from '../components/crete-payment';
 import { ReactElement } from 'react';
 import { Session } from 'next-auth';
 
@@ -8,7 +8,7 @@ interface HomePageProps {
 }
 
 export default function HomePage({ session }: HomePageProps) {
-  return <>Create payment</>;
+  return <CreatePaymentForm email={session.user.email} />;
 }
 
 HomePage.getLayout = function getLayout(page: ReactElement) {

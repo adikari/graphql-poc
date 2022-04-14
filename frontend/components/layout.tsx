@@ -33,7 +33,7 @@ export default function Layout({ children, title }: LayoutProps) {
       </Head>
 
       <div className="container px-4 py-6 mx-auto">
-        <div className="h-16">
+        <div className="h-16 mb-6">
           <h1 className="float-left text-2xl font-bold mb-6">{title}</h1>
 
           {router.asPath !== '/create' && (
@@ -45,7 +45,9 @@ export default function Layout({ children, title }: LayoutProps) {
           )}
 
           <div className="float-right">
-            <span className="mr-4 text-gray-600 text-sm">{session?.user?.email}</span>
+            <span className="hidden sm:inline mr-4 text-gray-600 text-sm">
+              {session?.user?.email}
+            </span>
             <button
               type="button"
               onClick={() => void signOut()}

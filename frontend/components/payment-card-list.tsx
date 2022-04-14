@@ -16,12 +16,10 @@ export default function PaymentCardList({ email }: PaymentCardListProps) {
   if (error) return <p>Oh no... something went wrong</p>;
 
   return (
-    <div>
-      <div className="flex gap-10">
-        {data?.userByEmail?.payments?.map(payment => (
-          <PaymentCard key={payment.id} payment={payment} />
-        ))}
-      </div>
+    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {data?.userByEmail?.payments?.map(payment => (
+        <PaymentCard key={payment.id} payment={payment} />
+      ))}
     </div>
   );
 }

@@ -6,7 +6,7 @@ interface PaymentCardProps {
 
 export default function PaymentCard({ payment }: PaymentCardProps) {
   return (
-    <div className="p-6 max-w-sm bg-gray-800 rounded-lg border border-gray-200 shadow-md">
+    <div className="p-6 bg-gray-800 rounded-lg border border-gray-200 shadow-md">
       <a href="#">
         <h5 className="mb-4 text-5xl font-bold tracking-tight text-gray-100">${payment.amount}</h5>
       </a>
