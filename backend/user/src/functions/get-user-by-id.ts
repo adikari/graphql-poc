@@ -4,12 +4,13 @@ import { userByEmail } from '../data/ddb/user-by-email';
 
 export const handler: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEventV2) => {
   log.info('received event', { event });
+
   const userId = event.pathParameters?.id;
 
   if (!userId) {
     return {
       statusCode: 400,
-      body: 'userId is missing in path params'
+      body: 'email is missing in path params'
     };
   }
 

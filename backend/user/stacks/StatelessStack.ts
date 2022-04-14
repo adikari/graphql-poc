@@ -35,9 +35,6 @@ export default class StatelessStack extends sst.Stack {
         'POST /graphql': {
           function: {
             handler: 'src/server.handler',
-            environment: {
-              USER_TABLE: props.userTable.tableName
-            },
             permissions: [props.userTable]
           }
         }
