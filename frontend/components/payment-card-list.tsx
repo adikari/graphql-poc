@@ -1,20 +1,27 @@
 import PaymentCard from './payment-card';
-import { useQuery } from 'urql';
 import { useUserByEmailQuery } from '../generated/graphql';
 import Spinner from './spinner';
 
-export default function Home() {
-  const [result] = useUserByEmailQuery({ variables: { email: 'subash.adhikari@paytron.com' } });
+interface PaymentCardListProps {
+  email: string;
+}
+
+export default function PaymentCardList({ email }: PaymentCardListProps) {
+  const [result] = useUserByEmailQuery({ variables: { email } });
 
   const { data, fetching, error } = result;
 
   if (fetching) return <Spinner />;
 
-  if (error) return <p>Oh no... {error.message}</p>;
+  if (error) return <p>Oh no... something went wrong</p>;
 
   return (
     <div>
-      <PaymentCard />
+      <div className="flex gap-10">
+        {data?.userByEmail?.payments?.map(payment => (
+          <PaymentCard key={payment.id} payment={payment} />
+        ))}
+      </div>
     </div>
   );
 }

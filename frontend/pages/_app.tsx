@@ -17,10 +17,7 @@ const client = createClient({
   url: 'https://bgyn2ati22.execute-api.us-east-1.amazonaws.com/graphql'
 });
 
-export default function MyApp({
-  Component,
-  pageProps: { session, ...pageProps }
-}: AppPropsWithLayout) {
+export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? (page => page);
 
   return (

@@ -1,10 +1,10 @@
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { cloneElement, useEffect } from 'react';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Spinner from '../components/spinner';
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children: React.ReactElement;
   title: string;
 }
 
@@ -43,7 +43,7 @@ export default function Layout({ children, title }: LayoutProps) {
             </button>
           </div>
         </div>
-        <main>{children}</main>
+        <main>{cloneElement(children, { session })}</main>
       </div>
     </>
   );

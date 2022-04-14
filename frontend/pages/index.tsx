@@ -1,13 +1,14 @@
 import PaymentCardList from '../components/payment-card-list';
 import Layout from '../components/layout';
 import { ReactElement } from 'react';
+import { Session } from 'next-auth';
 
-export default function HomePage() {
-  return (
-    <>
-      <PaymentCardList />
-    </>
-  );
+interface HomePageProps {
+  session: Session;
+}
+
+export default function HomePage({ session }: HomePageProps) {
+  return <PaymentCardList email={session.user.email} />;
 }
 
 HomePage.getLayout = function getLayout(page: ReactElement) {
