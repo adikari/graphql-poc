@@ -4,7 +4,7 @@ import type { AppProps } from 'next/app';
 import { Provider } from 'urql';
 import { SessionProvider } from 'next-auth/react';
 import { ReactElement, ReactNode } from 'react';
-import { client } from '../client/graphql';
+import { client, ssr } from '../client/graphql';
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -16,6 +16,10 @@ type AppPropsWithLayout = AppProps & {
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? (page => page);
+
+  if (pageProps.urqlState) {
+    ssr.restoreData(pageProps.urqlState);
+  }
 
   return (
     <Provider value={client}>

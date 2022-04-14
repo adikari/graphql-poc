@@ -46,12 +46,13 @@ async function authorize(credentials: Record<'email', string> | undefined) {
     return null;
   }
 }
+
 export default NextAuth({
   providers: [
     CredentialsProvider({
       name: 'Email',
       credentials: {
-        email: { label: 'Email', type: 'email', placeholder: 'jsmith' }
+        email: { label: 'Email', type: 'email', placeholder: 'foo@gmail.com' }
       },
       authorize
     })

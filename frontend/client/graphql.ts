@@ -1,9 +1,19 @@
-import { createClient, dedupExchange, fetchExchange } from 'urql';
+import { createClient, dedupExchange, fetchExchange, ssrExchange } from 'urql';
 import { devtoolsExchange } from '@urql/devtools';
 import { cacheExchange } from '@urql/exchange-graphcache';
-import { CreatePaymentMutation, UserByEmailDocument, UserByEmailQuery } from '../generated/graphql';
+import {
+  CreatePaymentMutation,
+  Payment,
+  UserByEmailDocument,
+  UserByEmailQuery
+} from '../generated/graphql';
 
 const cache = cacheExchange({
+  resolvers: {
+    Payment: {
+      date: (payment: Payment) => new Date(payment.date).toDateString()
+    }
+  },
   updates: {
     Mutation: {
       createPayment(result: CreatePaymentMutation, _args, cache) {
@@ -35,7 +45,11 @@ const cache = cacheExchange({
   }
 });
 
+export const ssr = ssrExchange({
+  isClient: typeof window !== 'undefined'
+});
+
 export const client = createClient({
   url: 'https://bgyn2ati22.execute-api.us-east-1.amazonaws.com/graphql',
-  exchanges: [devtoolsExchange, dedupExchange, cache, fetchExchange]
+  exchanges: [devtoolsExchange, dedupExchange, cache, ssr, fetchExchange]
 });
