@@ -13,11 +13,15 @@ export default function PaymentCardList({ email }: PaymentCardListProps) {
 
   if (fetching) return <Spinner />;
 
-  if (error) return <p>Oh no... something went wrong</p>;
+  if (error) return <p>Oh no... something went wrong 💩</p>;
+
+  const payments = data?.userByEmail?.payments ?? [];
+
+  if (payments.length === 0) return <p className="text-gray-700">You dont have any payments 😢</p>;
 
   return (
     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      {data?.userByEmail?.payments?.map(payment => (
+      {payments.map(payment => (
         <PaymentCard key={payment.id} payment={payment} />
       ))}
     </div>
