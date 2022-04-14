@@ -1,6 +1,7 @@
 import { useCreatePaymentMutation } from '../generated/graphql';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 interface CreatePaymentFormProps {
   email: string;
@@ -87,6 +88,12 @@ export default function CreatePaymentForm(props: CreatePaymentFormProps) {
       >
         Create Payment
       </button>
+
+      <Link href="/">
+        <a className="text-gray-700 ml-6 bg-gray-200 shadow-sm focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-3 text-center hover:bg-gray-300">
+          Back
+        </a>
+      </Link>
     </form>
   );
 }

@@ -152,6 +152,7 @@ export type CreatePaymentMutation = {
     beneficiary: string;
     date: string;
     amount: number;
+    user: { __typename?: 'User'; id: string };
   } | null;
 };
 
@@ -217,6 +218,9 @@ export const CreatePaymentDocument = gql`
       beneficiary
       date
       amount
+      user {
+        id
+      }
     }
   }
 `;

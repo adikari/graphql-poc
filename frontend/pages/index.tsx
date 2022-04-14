@@ -8,7 +8,7 @@ interface HomePageProps {
 }
 
 export default function HomePage({ session }: HomePageProps) {
-  return <PaymentCardList email={session.user.email} />;
+  return <PaymentCardList email={session?.user?.email} />;
 }
 
 HomePage.getLayout = function getLayout(page: ReactElement) {
