@@ -51,6 +51,6 @@ export const resolvers: Resolvers = {
     user: payment => ({ __typename: 'User', id: payment.user })
   },
   User: {
-    payments: (payment, _, context) => context.Payment.paymentsByUserEmail(payment.id)
+    payments: (user, _, context) => context.Payment.paymentsByUserEmail(user.id)
   }
 };
