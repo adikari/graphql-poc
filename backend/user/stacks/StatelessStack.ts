@@ -11,6 +11,7 @@ export default class StatelessStack extends sst.Stack {
 
     const paymentGraphqlEndpoint = cdk.Fn.importValue(`${this.stage}-payment-GraphqlEndpoint`);
 
+    // rest api definitions
     const restapi = new sst.Api(this, 'Rest', {
       routes: {
         'GET /users/{id}': {
@@ -30,6 +31,7 @@ export default class StatelessStack extends sst.Stack {
       }
     });
 
+    // graphql api defination
     const graphqlApi = new sst.Api(this, 'Api', {
       routes: {
         'POST /graphql': {

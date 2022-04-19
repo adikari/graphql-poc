@@ -17,6 +17,8 @@ type AppPropsWithLayout = AppProps & {
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? (page => page);
 
+  // hydrate the frontend client with the data received from the server
+  // if some queries were resolved in the server then it will be cached automatically in the frontend
   if (pageProps.urqlState) {
     ssr.restoreData(pageProps.urqlState);
   }

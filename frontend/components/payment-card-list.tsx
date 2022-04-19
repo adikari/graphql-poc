@@ -7,6 +7,9 @@ interface PaymentCardListProps {
 }
 
 export default function PaymentCardList({ email }: PaymentCardListProps) {
+  // this code was generated based on the backend type definitions from gateway
+  // this is pretty neat as we dont have to add any code to interact with backend server
+  // the types are also automatically generated. if something changes in the backend api, we will know about it immediately if FE
   const [result] = useUserByEmailQuery({ variables: { email } });
 
   const { data, fetching, error } = result;

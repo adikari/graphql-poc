@@ -16,6 +16,7 @@ const cache = cacheExchange({
   },
   updates: {
     Mutation: {
+      // handle cache update on mutation. this will update the cache to include the new payment in the list of payments
       createPayment(result: CreatePaymentMutation, _args, cache) {
         const query = {
           query: UserByEmailDocument,

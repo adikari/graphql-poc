@@ -18,6 +18,7 @@ export default class StatelessStack extends sst.Stack {
       }
     });
 
+    // this api is entrypoint to all graphql servers (eg, payment, user)
     const api = new sst.Api(this, 'Api', {
       routes: {
         'POST /graphql': gqlServer
